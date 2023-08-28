@@ -44,9 +44,9 @@
 ### Key Features <a name="key-features"></a>
 
 
-- Class Persorn Class
-- Class student Class and inherits from Person class
-- Class teacher Class and inherits from Person class
+- Created Persorn Class
+- Created student Class and inherits from Person class
+- Created teacher Class and inherits from Person class
 
 
 
