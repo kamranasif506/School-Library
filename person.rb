@@ -12,7 +12,6 @@ class Person < Nameable
     @age = age
     @parent_permission = parent_permission
     super()
-    # @nameable = Nameable.new
   end
 
   def can_use_services?
