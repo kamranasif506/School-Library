@@ -1,4 +1,6 @@
 require_relative 'nameable'
+require_relative 'capitalizedecorator'
+require_relative 'trimmerdecorator'
 
 class Person < Nameable
   attr_reader :id
@@ -9,20 +11,21 @@ class Person < Nameable
     @name = name
     @age = age
     @parent_permission = parent_permission
-    @nameable = Nameable.new
+    super()
+    # @nameable = Nameable.new
   end
 
   def can_use_services?
     of_age? || @parent_permission
   end
 
+  def correct_name
+    @name
+  end
+
   private
 
   def of_age?
     @age >= 18
-  end
-
-  def correct_name
-    @name
   end
 end
