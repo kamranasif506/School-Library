@@ -48,6 +48,9 @@
 - Created the has-many/belongs-to relationship between Classroom and Student
 - Created Book & Rental Classes
 - Created the many-to-many (also has-many-through) relationship between Person and Book using the intermediate class Rental
+- Add a basic-UI 
+- Create a app.rb file that will serve as console app entry-point
+- Create Main.rb file which act as an entry point for the app
 
 
 
