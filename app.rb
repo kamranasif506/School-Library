@@ -79,6 +79,14 @@ class App
         puts 'rental added successfully'
         $stdout.flush
     end
+    def list_all_rentals
+        print 'ID of person'
+        input_person_id = gets.chomp.to_i
+        puts 'Rentals'
+        @rentals.each do |rental|
+            puts "Date: #{rental.date}, Book: #{rental.book.title}" if rental.person.id == input_person_id
+        end
+    end
 
     def render_choices
         puts 'Please Choose an Option by entering a number:'
