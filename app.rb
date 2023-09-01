@@ -59,6 +59,27 @@ class App
         puts "Book added successfully"
         $stdout.flush
     end
+
+    def add_rental
+        puts 'Select a book from the following list by number'
+        @books.each_with_index do |book, index|
+            puts "#{index}) Title: #{book.title}, Author: #{book.author}"
+        end
+        book_index = gets.chomp.to_i
+        select_book = @books[book_index]
+        print 'Select a person from the following list by number (not ID)'
+        @persons.each_with_index do |person, index|
+          puts "#{index}) Name: #{person.name} ID: #{person.id} Age: #{person.age}"
+        end
+        person_index = gets.chomp.to_i
+        select_person = @persons[person_index]
+        print 'Enter Rental Date (yyyy-mm-dd)'
+        date = gets.chomp
+        @rentals.push(Rental.new(date, select_person, select_book))
+        puts 'rental added successfully'
+        $stdout.flush
+    end
+
     def render_choices
         puts 'Please Choose an Option by entering a number:'
         puts '1. List all books.'
