@@ -1,8 +1,8 @@
 require_relative 'app'
 
 def main
-    myApp = App.new
-    myApp.show
+  my_app = App.new
+  my_app.show
 end
 
 main
