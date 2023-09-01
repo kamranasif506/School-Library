@@ -11,6 +11,15 @@ class App
         puts "List of Books. \n"
         @books.each{ |book| puts "title: #{book.title} by author : #{book.author}" }
     end
+    def list_all_people
+        @persons.each do |person|
+            if person.instance_of?(Teacher)
+                puts "[Teacher]Age: #{person.age} Name: #{person.name}, ID: #{person.id}"
+            else
+                puts "[Student]Age: #{person.age},Name: #{person.name}, ID: #{person.id} "
+            end
+        end
+    end
     def add_new_book
         print "Book: "
         book_name = gets.chomp
