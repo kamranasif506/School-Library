@@ -1,4 +1,6 @@
 require_relative 'book'
+require_relative 'student'
+require_relative 'teacher'
 class App
     attr_accessor :books, :persons, :rentals
     def initialize
@@ -20,6 +22,34 @@ class App
             end
         end
     end
+
+    def create_a_person
+        print 'Do you want to add a student (1) or a teacher (2)? [Insert the number]: '
+        is_student = gets.chomp.strip.to_i
+        print 'age: '
+        age = gets.chomp.to_i
+        print 'Name: '
+        name = gets.chomp
+        case is_student
+        when 1
+            puts 'Has Parent Permission [Y/N]'
+            permission = gets.chomp.downcase == 'y'
+            create_student(age, person_name, permission)
+        when 2
+            create_teacher(age, name)
+        end
+        puts "Person added Successfully"
+        $stdout.flush
+    end
+    def create_student(age,name,permission)
+        @persons << Student.new(age,permission,name)
+    end
+    def create_teacher(age,name)
+        puts 'Specialization: '
+        specialization = gets.chomp
+        @persons << Teacher.new(age,specialization,name)
+    end
+
     def add_new_book
         print "Book: "
         book_name = gets.chomp
