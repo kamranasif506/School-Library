@@ -1,6 +1,9 @@
 require_relative 'book'
 require_relative 'student'
 require_relative 'teacher'
+require_relative 'rental'
+require_relative 'person'
+
 class App
     attr_accessor :books, :persons, :rentals
     def initialize
@@ -10,10 +13,12 @@ class App
     end
 
     def list_all_books
-        puts "List of Books. \n"
+        puts "\nList of Books. \n"
         @books.each{ |book| puts "title: #{book.title} by author : #{book.author}" }
+        puts "\n"
     end
     def list_all_people
+        puts "\n"
         @persons.each do |person|
             if person.instance_of?(Teacher)
                 puts "[Teacher]Age: #{person.age} Name: #{person.name}, ID: #{person.id}"
@@ -21,10 +26,11 @@ class App
                 puts "[Student]Age: #{person.age},Name: #{person.name}, ID: #{person.id} "
             end
         end
+        puts "\n"
     end
 
     def create_a_person
-        print 'Do you want to add a student (1) or a teacher (2)? [Insert the number]: '
+        print "\nDo you want to add a student (1) or a teacher (2)? [Insert the number]: "
         is_student = gets.chomp.strip.to_i
         print 'age: '
         age = gets.chomp.to_i
@@ -32,42 +38,42 @@ class App
         name = gets.chomp
         case is_student
         when 1
-            puts 'Has Parent Permission [Y/N]'
+            print 'Has Parent Permission [Y/N]: '
             permission = gets.chomp.downcase == 'y'
-            create_student(age, person_name, permission)
+            create_student(age, name, permission)
         when 2
             create_teacher(age, name)
         end
-        puts "Person added Successfully"
+        print "Person added Successfully. \n"
         $stdout.flush
     end
     def create_student(age,name,permission)
-        @persons << Student.new(age,permission,name)
+        @persons << Student.new(age, parent_permission: permission, name: name)
     end
     def create_teacher(age,name)
         puts 'Specialization: '
         specialization = gets.chomp
-        @persons << Teacher.new(age,specialization,name)
+        @persons << Teacher.new(age,specialization,name: name)
     end
 
     def add_new_book
-        print "Book: "
+        print "\nBook: "
         book_name = gets.chomp
         print "Author: "
         author_name = gets.chomp
-        @books << Books.new(book_name,author_name)
-        puts "Book added successfully"
+        @books << Book.new(book_name,author_name)
+        puts "Book added successfully.\n"
         $stdout.flush
     end
 
     def add_rental
-        puts 'Select a book from the following list by number'
+        puts "\nSelect a book from the following list by number"
         @books.each_with_index do |book, index|
             puts "#{index}) Title: #{book.title}, Author: #{book.author}"
         end
         book_index = gets.chomp.to_i
         select_book = @books[book_index]
-        print 'Select a person from the following list by number (not ID)'
+        print "Select a person from the following list by number (not ID)\n"
         @persons.each_with_index do |person, index|
           puts "#{index}) Name: #{person.name} ID: #{person.id} Age: #{person.age}"
         end
@@ -76,16 +82,17 @@ class App
         print 'Enter Rental Date (yyyy-mm-dd)'
         date = gets.chomp
         @rentals.push(Rental.new(date, select_person, select_book))
-        puts 'rental added successfully'
+        puts "rental added successfully.\n"
         $stdout.flush
     end
     def list_all_rentals
-        print 'ID of person'
+        print "\nID of person"
         input_person_id = gets.chomp.to_i
         puts 'Rentals'
         @rentals.each do |rental|
             puts "Date: #{rental.date}, Book: #{rental.book.title}" if rental.person.id == input_person_id
         end
+        puts "\n"
     end
 
     def render_choices
@@ -102,17 +109,17 @@ class App
     def choose_number(choice)
         case choice
         when 1
-          list__all_books
+          list_all_books
         when 2
-          list_all_persons
+          list_all_people
         when 3
           create_a_person
         when 4
-          create_a_book
+          add_new_book
         when 5
-          create_a_rental
+          add_rental
         when 6
-          list_of_rentals
+          list_all_rentals
         end
     end
     
