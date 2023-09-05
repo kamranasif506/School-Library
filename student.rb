@@ -19,5 +19,4 @@ class Student < Person
   def print
     puts "[Student] Name: #{name}, ID: #{id}, Age: #{age}"
   end
-
 end

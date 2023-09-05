@@ -15,32 +15,26 @@ class App
 
   def list_all_books
     puts "\nList of Books. \n"
-    @books.each { |b| b.print }
+    @books.each(&:print)
     puts "\n"
   end
 
   def list_all_people
     puts "\n"
-    @persons.each do |person|
-      if person.instance_of?(Teacher)
-        person.print
-      else
-        person.print
-      end
-    end
-    
+    @persons.each(&:print)
+
     puts "\n"
   end
 
   def list_all_rentals
     print "\nID of person"
     input_person_id = gets.chomp.to_i
-    
+
     person = @persons.find { |p| p.id == input_person_id }
     rentals = @rentals.select { |r| r.person == person }
-    
+
     puts 'Rentals'
-    rentals.each { |rental| rental.print }
+    rentals.each(&:print)
     puts "\n"
   end
 
@@ -102,6 +96,4 @@ class App
     puts "rental added successfully.\n"
     $stdout.flush
   end
-
- 
 end

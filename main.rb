@@ -28,7 +28,6 @@ def choose_number(choice, app)
   end
 end
 
-
 def main
   app = App.new
   loop do
@@ -38,7 +37,7 @@ def main
       puts 'Thank you for using this app'
       break
     end
-    choose_number(choice,app)
+    choose_number(choice, app)
   end
 end
 
