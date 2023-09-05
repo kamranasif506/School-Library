@@ -15,4 +15,9 @@ class Student < Person
   def play_hooky
     '¯\\(ツ)/¯'
   end
+
+  def print
+    puts "[Student] Name: #{name}, ID: #{id}, Age: #{age}"
+  end
+
 end

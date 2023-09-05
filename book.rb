@@ -10,4 +10,9 @@ class Book
   def add_rental(rental)
     @rentals << rental
   end
+  
+  def print
+    puts "title: #{title} by author : #{author}"
+  end
+
 end

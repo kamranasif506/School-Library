@@ -15,7 +15,7 @@ class App
 
   def list_all_books
     puts "\nList of Books. \n"
-    @books.each { |book| puts "title: #{book.title} by author : #{book.author}" }
+    @books.each { |b| b.print }
     puts "\n"
   end
 
@@ -23,11 +23,24 @@ class App
     puts "\n"
     @persons.each do |person|
       if person.instance_of?(Teacher)
-        puts "[Teacher]Age: #{person.age} Name: #{person.name}, ID: #{person.id}"
+        person.print
       else
-        puts "[Student]Age: #{person.age},Name: #{person.name}, ID: #{person.id} "
+        person.print
       end
     end
+    
+    puts "\n"
+  end
+
+  def list_all_rentals
+    print "\nID of person"
+    input_person_id = gets.chomp.to_i
+    
+    person = @persons.find { |p| p.id == input_person_id }
+    rentals = @rentals.select { |r| r.person == person }
+    
+    puts 'Rentals'
+    rentals.each { |rental| rental.print }
     puts "\n"
   end
 
@@ -90,13 +103,5 @@ class App
     $stdout.flush
   end
 
-  def list_all_rentals
-    print "\nID of person"
-    input_person_id = gets.chomp.to_i
-    puts 'Rentals'
-    @rentals.each do |rental|
-      puts "Date: #{rental.date}, Book: #{rental.book.title}" if rental.person.id == input_person_id
-    end
-    puts "\n"
-  end
+ 
 end
