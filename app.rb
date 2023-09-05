@@ -15,19 +15,26 @@ class App
 
   def list_all_books
     puts "\nList of Books. \n"
-    @books.each { |book| puts "title: #{book.title} by author : #{book.author}" }
+    @books.each(&:print)
     puts "\n"
   end
 
   def list_all_people
     puts "\n"
-    @persons.each do |person|
-      if person.instance_of?(Teacher)
-        puts "[Teacher]Age: #{person.age} Name: #{person.name}, ID: #{person.id}"
-      else
-        puts "[Student]Age: #{person.age},Name: #{person.name}, ID: #{person.id} "
-      end
-    end
+    @persons.each(&:print)
+
+    puts "\n"
+  end
+
+  def list_all_rentals
+    print "\nID of person"
+    input_person_id = gets.chomp.to_i
+
+    person = @persons.find { |p| p.id == input_person_id }
+    rentals = @rentals.select { |r| r.person == person }
+
+    puts 'Rentals'
+    rentals.each(&:print)
     puts "\n"
   end
 
@@ -88,55 +95,5 @@ class App
     @rentals.push(Rental.new(date, select_person, select_book))
     puts "rental added successfully.\n"
     $stdout.flush
-  end
-
-  def list_all_rentals
-    print "\nID of person"
-    input_person_id = gets.chomp.to_i
-    puts 'Rentals'
-    @rentals.each do |rental|
-      puts "Date: #{rental.date}, Book: #{rental.book.title}" if rental.person.id == input_person_id
-    end
-    puts "\n"
-  end
-
-  def render_choices
-    puts 'Please Choose an Option by entering a number:'
-    puts '1. List all books.'
-    puts '2. List all people.'
-    puts '3. Create a person.'
-    puts '4. Create a book.'
-    puts '5. Create a rental.'
-    puts '6. List all rentals for a given person id.'
-    puts '7. EXIT'
-  end
-
-  def choose_number(choice)
-    case choice
-    when 1
-      list_all_books
-    when 2
-      list_all_people
-    when 3
-      create_a_person
-    when 4
-      add_new_book
-    when 5
-      add_rental
-    when 6
-      list_all_rentals
-    end
-  end
-
-  def show
-    loop do
-      render_choices
-      choice = gets.chomp.to_i
-      if choice >= 7
-        puts 'Thank you for using this app'
-        break
-      end
-      choose_number(choice)
-    end
   end
 end

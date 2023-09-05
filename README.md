@@ -99,7 +99,11 @@ Run this command:
 - Twitter: [@twitterhandle](https://twitter.com/kamiasif55)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/kamran-asif-b3a612130/)
 
+👤 **Ichsan Sandy**
 
+- GitHub: [@ichsansandy](https://github.com/ichsansandy)
+- Twitter: [@1chsansandy](https://twitter.com/1chsansandy)
+- LinkedIn: [Ichsan Sandy](https://linkedin.com/in/ichsans)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
