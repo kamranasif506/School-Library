@@ -35,7 +35,7 @@ def main
   books = load_book_data
   persons = load_person_data
   rentals = load_rental_data
-  app = App.new(books,persons,rentals)
+  app = App.new(books, persons, rentals)
   loop do
     render_choices
     choice = gets.chomp.to_i
@@ -50,11 +50,23 @@ def main
 end
 
 def load_book_data
-  JSON.parse(File.read('data/books.json'))
+  all_book = []
+  if File.exist?('data/books.json')
+    book_data = JSON.parse(File.read('data/books.json'))
+    book_data.each { |b| all_book.push(Book.new(b['title'], b['author'])) }
+  end
+  all_book
 end
 
 def load_person_data
-  JSON.parse(File.read('data/persons.json'))
+  input_data = JSON.parse(File.read('data/persons.json'))
+  input_data.map do |person|
+    if person['type'] == 'Student'
+      Student.new(person['age'], parent_permission: person['parent_permission'], name: person['name'])
+    else
+      Teacher.new(person['age'], person['specialization'], name: person['name'])
+    end
+  end
 end
 
 def load_rental_data

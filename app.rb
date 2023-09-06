@@ -8,7 +8,7 @@ require 'json'
 class App
   attr_accessor :books, :persons, :rentals
 
-  def initialize(books_data,person_data,rental_data)
+  def initialize(books_data, person_data, rental_data)
     @books = books_data
     @persons = person_data
     @rentals = rental_data
@@ -97,6 +97,7 @@ class App
     puts "rental added successfully.\n"
     $stdout.flush
   end
+
   def store_books
     data = @books.map do |book|
       { title: book.title, author: book.author, rentals: book.rentals }
@@ -104,21 +105,26 @@ class App
     file = File.open('data/books.json', 'w')
     file.puts(data.to_json)
     file.close
-
   end
+
   def store_persons
-    person_data = @persons.to_json
+    data = @persons.map do |person|
+      if person.instance_of? Student
+        { name: person.name, age: person.age, type: 'Student', parent_permission: person.parent_permission }
+      else
+        { name: person.name, age: person.age, type: 'Teacher', specialization: person.specialization }
+      end
+    end
     file = File.open('data/persons.json', 'w')
-    file.puts(person_data)
+    file.puts(data.to_json)
     file.close
-
   end
+
   def store_rental
     rental_data = @rentals.to_json
     file = File.open('data/rentals.json', 'w')
     file.puts(rental_data)
     file.close
-
   end
 
   def store_data
@@ -126,5 +132,4 @@ class App
     store_persons
     store_rental
   end
-
 end
