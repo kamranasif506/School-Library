@@ -124,17 +124,8 @@ class App
     data = @rentals.map do |rental|
       {
         date: rental.date,
-        person: {
-          id: rental.person.id,
-          name: rental.person.name,
-          age: rental.person.age,
-          # Add any other attributes you want to store
-        },
-        book: {
-          title: rental.book.title,
-          author: rental.book.author,
-          # Add any other attributes you want to store
-        }
+        person_index: @persons.find_index(rental.person),
+        book_index: @books.find_index(rental.book)
       }
     end
     file = File.open('data/rentals.json', 'w')

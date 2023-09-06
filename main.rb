@@ -34,7 +34,7 @@ def main
   # load the data and then parse it to the app
   books = load_book_data
   persons = load_person_data
-  rentals = load_rental_data
+  rentals = load_rental_data(persons, books)
   app = App.new(books, persons, rentals)
   loop do
     render_choices
@@ -51,7 +51,7 @@ end
 
 def load_book_data
   all_book = []
-  if File.exist?('data/books.json') && !File.zero?('data/books.json')
+  if File.exist?('data/books.json') && !File.empty?('data/books.json')
     book_data = JSON.parse(File.read('data/books.json'))
     book_data.each { |b| all_book.push(Book.new(b['title'], b['author'])) }
   end
@@ -61,7 +61,7 @@ end
 def load_person_data
   all_persons = []
 
-  if File.exist?('data/persons.json') && !File.zero?('data/persons.json')
+  if File.exist?('data/persons.json') && !File.empty?('data/persons.json')
     all_persons_data = JSON.parse(File.read('data/persons.json'))
 
     all_persons = all_persons_data.map do |person_data|
@@ -76,27 +76,13 @@ def load_person_data
   all_persons
 end
 
-def load_rental_data
+def load_rental_data(persons, books)
   all_rentals = []
-  if File.exist?('data/rentals.json') && !File.zero?('data/rentals.json')
+  if File.exist?('data/rentals.json') && !File.empty?('data/rentals.json')
     all_rentals_data = JSON.parse(File.read('data/rentals.json'))
-    all_rentals_data.each do |rental_data|
-      # Find the corresponding person object by ID
-      person_id = rental_data['person']['id']
-      person = @persons.find { |p| p.id == person_id }
-
-      # Find the corresponding book object by title (or other identifying attribute)
-      book_title = rental_data['book']['title']
-      book = @books.find { |b| b.title == book_title }
-
-      if person && book
-        rental = Rental.new(rental_data['date'], person, book)
-        all_rentals << rental
-      else
-        puts "Invalid person ID or book title in rental data. Skipping."
-      end
+    all_rentals_data.each do |r|
+      all_rentals.push(Rental.new(r['date'], persons[r['person_index']], books[r['book_index']]))
     end
-    # all_rentals_data.each { |b| all_rentals.push(Rental.new(b['date'], b['person'], b['book'])) }
   end
   all_rentals
 end
