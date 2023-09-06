@@ -98,10 +98,17 @@ class App
     $stdout.flush
   end
   def store_books
-    book_data = @books.to_json
+    # book_data = @books.to_json
+    book_data = []
+    @books.each { |b| 
+      book_data.push({ "title": b.title, "author": b.author })
+      # book['author']= b.author
+    }
+    puts book_data
     file = File.open('data/books.json', 'w')
-    file.puts(book_data)
+    file.puts(book_data.to_json)
     file.close
+
   end
   def store_persons
     person_data = @persons.to_json
