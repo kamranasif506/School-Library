@@ -121,9 +121,24 @@ class App
   end
 
   def store_rental
-    rental_data = @rentals.to_json
+    data = @rentals.map do |rental|
+      {
+        date: rental.date,
+        person: {
+          id: rental.person.id,
+          name: rental.person.name,
+          age: rental.person.age,
+          # Add any other attributes you want to store
+        },
+        book: {
+          title: rental.book.title,
+          author: rental.book.author,
+          # Add any other attributes you want to store
+        }
+      }
+    end
     file = File.open('data/rentals.json', 'w')
-    file.puts(rental_data)
+    file.puts(data.to_json)
     file.close
   end
 

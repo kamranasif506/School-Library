@@ -51,7 +51,7 @@ end
 
 def load_book_data
   all_book = []
-  if File.exist?('data/books.json')
+  if File.exist?('data/books.json') && !File.zero?('data/books.json')
     book_data = JSON.parse(File.read('data/books.json'))
     book_data.each { |b| all_book.push(Book.new(b['title'], b['author'])) }
   end
@@ -59,18 +59,46 @@ def load_book_data
 end
 
 def load_person_data
-  input_data = JSON.parse(File.read('data/persons.json'))
-  input_data.map do |person|
-    if person['type'] == 'Student'
-      Student.new(person['age'], parent_permission: person['parent_permission'], name: person['name'])
-    else
-      Teacher.new(person['age'], person['specialization'], name: person['name'])
+  all_persons = []
+
+  if File.exist?('data/persons.json') && !File.zero?('data/persons.json')
+    all_persons_data = JSON.parse(File.read('data/persons.json'))
+
+    all_persons = all_persons_data.map do |person_data|
+      if person_data['type'] == 'Student'
+        Student.new(person_data['age'], parent_permission: person_data['parent_permission'], name: person_data['name'])
+      else
+        Teacher.new(person_data['age'], person_data['specialization'], name: person_data['name'])
+      end
     end
   end
+
+  all_persons
 end
 
 def load_rental_data
-  JSON.parse(File.read('data/rentals.json'))
+  all_rentals = []
+  if File.exist?('data/rentals.json') && !File.zero?('data/rentals.json')
+    all_rentals_data = JSON.parse(File.read('data/rentals.json'))
+    all_rentals_data.each do |rental_data|
+      # Find the corresponding person object by ID
+      person_id = rental_data['person']['id']
+      person = @persons.find { |p| p.id == person_id }
+
+      # Find the corresponding book object by title (or other identifying attribute)
+      book_title = rental_data['book']['title']
+      book = @books.find { |b| b.title == book_title }
+
+      if person && book
+        rental = Rental.new(rental_data['date'], person, book)
+        all_rentals << rental
+      else
+        puts "Invalid person ID or book title in rental data. Skipping."
+      end
+    end
+    # all_rentals_data.each { |b| all_rentals.push(Rental.new(b['date'], b['person'], b['book'])) }
+  end
+  all_rentals
 end
 
 main

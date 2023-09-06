@@ -1,1 +1,1 @@
-[{"title":"boojsd","author":"asdas","rentals":[]},{"title":"book2","author":"author2","rentals":[]},{"title":"Lord of the Ring","author":"Tolkien","rentals":[]},{"title":"Harry Potter","author":"JK Rowling","rentals":[]}]
+[{"title":"boojsd","author":"asdas","rentals":["#<Rental:0x000055a1e0cb39f0>"]},{"title":"book2","author":"author2","rentals":[]},{"title":"Lord of the Ring","author":"Tolkien","rentals":[]},{"title":"Harry Potter","author":"JK Rowling","rentals":[]}]
