@@ -3,6 +3,7 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
 require_relative 'person'
+require 'json'
 
 class App
   attr_accessor :books, :persons, :rentals
@@ -96,4 +97,20 @@ class App
     puts "rental added successfully.\n"
     $stdout.flush
   end
+  def store_books
+    book_data = @books.to_json
+    file = File.open('data/books.json', 'w')
+    file.puts(book_data)
+  end
+  def store_persons
+    person_data = @persons.to_json
+    file = File.open('data/persons.json', 'w')
+    file.puts(person_data)
+  end
+  def store_rental
+    rental_data = @rentals.to_json
+    file = File.open('data/rentals.json', 'w')
+    file.puts(rental_data)
+  end
+
 end
