@@ -101,16 +101,27 @@ class App
     book_data = @books.to_json
     file = File.open('data/books.json', 'w')
     file.puts(book_data)
+    file.close
   end
   def store_persons
     person_data = @persons.to_json
     file = File.open('data/persons.json', 'w')
     file.puts(person_data)
+    file.close
+
   end
   def store_rental
     rental_data = @rentals.to_json
     file = File.open('data/rentals.json', 'w')
     file.puts(rental_data)
+    file.close
+
+  end
+
+  def store_data
+    store_books
+    store_persons
+    store_rental
   end
 
 end
