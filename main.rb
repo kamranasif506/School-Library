@@ -1,5 +1,7 @@
 require_relative 'app'
 
+require 'json'
+
 def render_choices
   puts 'Please Choose an Option by entering a number:'
   puts '1. List all books.'
@@ -29,16 +31,31 @@ def choose_number(choice, app)
 end
 
 def main
+  # load the data and then parse it to the app
+  books = load_book_data
   app = App.new
   loop do
     render_choices
     choice = gets.chomp.to_i
     if choice >= 7
+      # we will save the data
       puts 'Thank you for using this app'
       break
     end
     choose_number(choice, app)
   end
+end
+
+def load_book_data
+  JSON.parse(File.read('data/books.json'))
+end
+
+def load_person_data
+  JSON.parse(File.read('data/persons.json'))
+end
+
+def load_rental_data
+  JSON.parse(File.read('data/rentals.json'))
 end
 
 main
