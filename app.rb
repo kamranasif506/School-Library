@@ -8,7 +8,7 @@ class App
   attr_accessor :books, :persons, :rentals
 
   def initialize(books_data,person_data,rental_data)
-    @books = book_data
+    @books = books_data
     @persons = person_data
     @rentals = rental_data
   end
