@@ -51,6 +51,7 @@
 - Add a basic-UI 
 - Create a app.rb file that will serve as console app entry-point
 - Create Main.rb file which act as an entry point for the app
+- Preserve data in JSON format
 
 
 

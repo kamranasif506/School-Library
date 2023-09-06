@@ -3,14 +3,15 @@ require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
 require_relative 'person'
+require 'json'
 
 class App
   attr_accessor :books, :persons, :rentals
 
-  def initialize
-    @books = []
-    @persons = []
-    @rentals = []
+  def initialize(books_data, person_data, rental_data)
+    @books = books_data
+    @persons = person_data
+    @rentals = rental_data
   end
 
   def list_all_books
@@ -95,5 +96,46 @@ class App
     @rentals.push(Rental.new(date, select_person, select_book))
     puts "rental added successfully.\n"
     $stdout.flush
+  end
+
+  def store_books
+    data = @books.map do |book|
+      { title: book.title, author: book.author, rentals: book.rentals }
+    end
+    file = File.open('data/books.json', 'w')
+    file.puts(data.to_json)
+    file.close
+  end
+
+  def store_persons
+    data = @persons.map do |person|
+      if person.instance_of? Student
+        { name: person.name, age: person.age, type: 'Student', parent_permission: person.parent_permission }
+      else
+        { name: person.name, age: person.age, type: 'Teacher', specialization: person.specialization }
+      end
+    end
+    file = File.open('data/persons.json', 'w')
+    file.puts(data.to_json)
+    file.close
+  end
+
+  def store_rental
+    data = @rentals.map do |rental|
+      {
+        date: rental.date,
+        person_index: @persons.find_index(rental.person),
+        book_index: @books.find_index(rental.book)
+      }
+    end
+    file = File.open('data/rentals.json', 'w')
+    file.puts(data.to_json)
+    file.close
+  end
+
+  def store_data
+    store_books
+    store_persons
+    store_rental
   end
 end
