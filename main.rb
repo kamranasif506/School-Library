@@ -33,7 +33,9 @@ end
 def main
   # load the data and then parse it to the app
   books = load_book_data
-  app = App.new
+  persons = load_person_data
+  rentals = load_rental_data
+  app = App.new(books,persons,rentals)
   loop do
     render_choices
     choice = gets.chomp.to_i

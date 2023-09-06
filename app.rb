@@ -7,10 +7,10 @@ require_relative 'person'
 class App
   attr_accessor :books, :persons, :rentals
 
-  def initialize
-    @books = []
-    @persons = []
-    @rentals = []
+  def initialize(books_data,person_data,rental_data)
+    @books = book_data
+    @persons = person_data
+    @rentals = rental_data
   end
 
   def list_all_books
