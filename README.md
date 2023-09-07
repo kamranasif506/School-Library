@@ -7,7 +7,6 @@
   - [🛠 Built With](#built-with)
     - [Tech Stack](#tech-stack)
     - [Key Features](#key-features)
-  - [🚀 Live Demo](#live-demo)
 - [💻 Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)  
   - [Setup](#setup)  
@@ -52,18 +51,12 @@
 - Create a app.rb file that will serve as console app entry-point
 - Create Main.rb file which act as an entry point for the app
 - Preserve data in JSON format
+- Unit test
 
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- LIVE DEMO -->
-
-## 🚀 Live Demo <a name="live-demo"></a>
-
-- Coming soon
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
@@ -86,6 +79,12 @@ Run this command:
 ```sh
   cd my-folder
   git clone https://github.com/kamranasif506/School-Library.git
+```
+
+To run the RSpec tests for this project, use the following command:
+
+```bash
+rspec
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
