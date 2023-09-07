@@ -34,4 +34,10 @@ RSpec.describe Teacher do
       expect(@teacher.name).to eql('Ichsan')
     end
   end
+
+  describe '#can_use_services?' do
+    it 'should always return true for a Teacher' do
+      expect(@teacher.can_use_services?).to eql(true)
+    end
+  end
 end

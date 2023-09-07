@@ -1,25 +1,51 @@
 require_relative '../person'
 
+# Describe the Person class and its methods
 RSpec.describe Person do
-  before :each do
-    @person = Person.new(12, parent_permission: true, name: 'Ichsan')
-  end
+  let(:person) { Person.new(25, parent_permission: true, name: 'John Doe') }
+  let(:book) { instance_double('Book') }
 
-  describe '#age' do
-    it 'should be 12' do
-      expect(@person.age).to eql(12)
+  describe '#new' do
+    it 'should be an instance of Person' do
+      expect(person).to be_an_instance_of(Person)
+    end
+
+    it 'should have default attributes' do
+      expect(person.name).to eql('John Doe')
+      expect(person.age).to eql(25)
+      expect(person.parent_permission).to be true
     end
   end
 
-  describe '#parent_permission' do
-    it 'should be true' do
-      expect(@person.parent_permission).to eql(true)
+  describe '#can_use_services?' do
+    it 'should return true for an adult' do
+      expect(person.can_use_services?).to be true
+    end
+
+    it 'should return true with parent permission for a minor' do
+      minor = Person.new(17)
+      expect(minor.can_use_services?).to be true
+    end
+
+    it 'should return false for a minor without parent permission' do
+      minor = Person.new(17, parent_permission: false)
+      expect(minor.can_use_services?).to be false
     end
   end
 
-  describe '#name' do
-    it 'should be ichsan' do
-      expect(@person.name).to eql('Ichsan')
+  describe '#add_rental' do
+    it 'should create a new rental' do
+      date = '2023-09-07'
+      expect(Rental).to receive(:new).with(date, book, person)
+      person.add_rental(book, date)
     end
   end
+
+  describe '#correct_name' do
+    it 'should return the correct name' do
+      expect(person.correct_name).to eql('John Doe')
+    end
+  end
+
+  # Add more test cases as needed for other methods and behaviors
 end
