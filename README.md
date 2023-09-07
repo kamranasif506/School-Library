@@ -81,6 +81,12 @@ Run this command:
   git clone https://github.com/kamranasif506/School-Library.git
 ```
 
+To run the RSpec tests for this project, use the following command:
+
+```bash
+rspec
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- AUTHORS -->
